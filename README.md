@@ -12,7 +12,6 @@ such as forest fires, illegal intrusions, and hazardous gas emissions, contribut
 effective environmental conservation strategies
 ![image](https://github.com/user-attachments/assets/bb6730c7-fa83-490a-ba57-51d1d01fd0b2)
 ![image](https://github.com/user-attachments/assets/ebc19b17-d3c8-428d-b64c-f5194b6bc693)
-![image](https://github.com/user-attachments/assets/ff42bb15-b07e-46c6-9ecb-755a79a23b9d)
 ![image](https://github.com/user-attachments/assets/6c56032d-9155-413c-8faa-a42b3c2d426b)
 
 
