@@ -6,53 +6,40 @@
 #include <HardwareSerial.h>
 #include <TinyGPSPlus.h>
 
-// WiFi credentials
 const char *ssid = "My-Network";
 const char *password = "aniket123";
 
-// DHT11 Sensor
 #define DHTPIN 21
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 
-// PIR Motion Sensor
 #define PIR_PIN 25
-
-// Flame Sensor
 #define FLAME_PIN 2
+#define MQ135_A0 34
+#define MQ135_D0 33
 
-// MQ-135 Gas Sensor
-#define MQ135_A0 34  // Analog Pin
-#define MQ135_D0 33  // Digital Pin
-
-// GPS Module
 #define RXD2 16
 #define TXD2 17
 #define GPS_BAUD 9600
-HardwareSerial gpsSerial(2);  // Using Serial2 for GPS
-TinyGPSPlus gps;  // TinyGPSPlus object
+HardwareSerial gpsSerial(2);
+TinyGPSPlus gps;
 
 WebServer server(80);
 
 void readSensors(float &temperature, float &humidity, String &motionStatus, String &flameStatus, String &gasStatus, String &gpsData) {
-    // Read DHT11 data
     temperature = dht.readTemperature();
     humidity = dht.readHumidity();
 
-    // Read PIR Motion Sensor
     int pirState = digitalRead(PIR_PIN);
     motionStatus = (pirState == HIGH) ? "Motion Detected" : "No Motion";
 
-    // Read Flame Sensor
     int flameState = digitalRead(FLAME_PIN);
     flameStatus = (flameState == HIGH) ? "Fire Detected!" : "No Fire";
 
-    // Read MQ-135 Gas Sensor
     int mqAnalog = analogRead(MQ135_A0);
     int mqDigital = digitalRead(MQ135_D0);
     gasStatus = (mqAnalog > 2300 || mqDigital == LOW) ? "Smoke Detected!" : "No Smoke";
 
-    // Read GPS Data using TinyGPSPlus
     while (gpsSerial.available() > 0) {
         gps.encode(gpsSerial.read());
     }
@@ -116,7 +103,6 @@ void setup(void) {
     pinMode(MQ135_A0, INPUT);
     pinMode(MQ135_D0, INPUT);
 
-    // Initialize GPS
     gpsSerial.begin(GPS_BAUD, SERIAL_8N1, RXD2, TXD2);
 
     WiFi.begin(ssid, password);
